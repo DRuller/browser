@@ -1,23 +1,41 @@
 {
-    "name": "RRAY/Browser",
-    "description": "Browser plugin for CakePHP",
+    "name": "range-ray/cakephp-browser",
+    "description": "A PhantomJs browser plugin for CakePHP3 ",
     "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "range-ray",
+        "browser",
+        "phantomjs"
+    ],
     "license": "MIT",
     "require": {
-        "cakephp/cakephp": "^3.5"
+        "cakephp/cakephp": "^3.5",
+        "jonnyw/php-phantomjs": "4.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7.14|^6.0"
     },
     "autoload": {
         "psr-4": {
-            "Browser\\": "src/"
+            "RangeRay\\Browser\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Browser\\Test\\": "tests/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+          "TestApp\\": "tests/TestApp/src",
+          "RangeRay\\Browser\\Test\\": "tests"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
     }
 }

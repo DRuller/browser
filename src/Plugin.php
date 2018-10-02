@@ -9,4 +9,8 @@ use Cake\Core\BasePlugin;
  */
 class Plugin extends BasePlugin
 {
+    public function initialize()
+    {
+        define('BROWSER_DIR', dirname(__DIR__));
+    }
 }
