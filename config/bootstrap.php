@@ -6,4 +6,4 @@
  * @copyright  Copyright © 2018 web-studio range-ray, (https://www.rangeray.ru
  * @package rangecms3
  */
-define('BROWSER_DIR', __DIR__);
+define('BROWSER_DIR', dirname(__DIR__));
