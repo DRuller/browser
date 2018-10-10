@@ -1,6 +1,6 @@
 <?php
 
-namespace Browser\Model\Entity;
+namespace RangeRay\Browser\Model\Entity;
 
 
 use Cake\ORM\Entity;

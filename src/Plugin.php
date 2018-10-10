@@ -1,6 +1,6 @@
 <?php
 
-namespace Browser;
+namespace RangeRay\Browser;
 
 use Cake\Core\BasePlugin;
 

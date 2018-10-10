@@ -1,9 +1,9 @@
 <?php
-namespace Browser\Utility;
+namespace RangeRay\Browser\Utility;
 
 
-use Browser\Model\Entity\Response;
-use Browser\Plugin;
+use RangeRay\Browser\Model\Entity\Response;
+use RangeRay\Browser\Plugin;
 use Cake\Core\Configure;
 use Cake\Core\InstanceConfigTrait;
 use JonnyW\PhantomJs\Client;
