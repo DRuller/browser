@@ -53,9 +53,13 @@ class Browser
      * @param string|null $url
      * @param string $method
      * @param array $headers
+     * @param array $data
+     * @param string $proxy
+     * @param string $user_agent
+     * @param string $cookie_file
      * @return bool|Response
      */
-    public static function browse(string $url = null, string $method = 'GET', array $headers = [])
+    public static function browse(string $url = null, string $method = 'GET', array $headers = [], array $data = [], $proxy = null, $user_agent = null, $cookie_file = false)
     {
         $start = microtime(true);
 
@@ -65,6 +69,10 @@ class Browser
 
         self::init();
 
+        if($cookie_file){
+            debug($cookie_file);
+            self::$client->getEngine()->addOption('--cookies-file=' . $cookie_file);
+        }
         self::$client->isLazy();
 
         $request = self::$client->getMessageFactory()->createRequest();
@@ -72,7 +80,7 @@ class Browser
 
         if($proxies = Configure::read('Browser.proxies')){
 
-            $random_proxy = $proxies[array_rand($proxies)];
+            $random_proxy = $proxy ? $proxy : $proxies[array_rand($proxies)];
 
             if(Configure::read('Browser.auth.login') && Configure::read('Browser.auth.pass')){
                 $login = Configure::read('Browser.auth.login');
@@ -84,7 +92,9 @@ class Browser
         }
 
         if($user_agents = Configure::read('Browser.user_agents')){
-            $random_user_agent = $user_agents[array_rand($user_agents)];
+
+            $random_user_agent = $user_agent ? $user_agent : $user_agents[array_rand($user_agents)];
+
             $request->addHeader('User-Agent', $random_user_agent);
         }
 
@@ -94,9 +104,14 @@ class Browser
             }
         }
 
+
         $request->setMethod($method);
 
         $request->setUrl($url);
+
+        if($data){
+            $request->setRequestData($data);
+        }
 
         self::$client->send($request, $response);
 
@@ -107,7 +122,8 @@ class Browser
             'request' => $request,
             'response' => $response,
             'execution_time' => $time,
-            'proxy' => $random_proxy ?? false
+            'proxy' => $random_proxy ?? false,
+            'user_agent' => $random_user_agent ?? false
         ]);
 
         return $response_browser;
